@@ -25,27 +25,7 @@
         上层回调具体实现 
         SetPivotPointCallbackFun([](void* pContext, CVector3f& pt) -> bool
         {
-            if (!pContext)
-            {
-                return false;
-            }
-            IGMPService* pService = (IGMPService*)pContext;
-            CCoordinates3d oCoord;
-            if (IGMPWorkPlane* pWorkPlane = pService->state()->curWorkPlane())
-            {
-                oCoord = pWorkPlane->coordinate();
-            }
-            else
-            {
-                double dZ = pService->state()->curFloor()->btmElev() * 1000;
-                oCoord.Origin.Z = dZ;
-            }
-            CVector3d oPos = pService->modelViewer()->RealViewer()->GetCamera()->Position().Vec3d().LocalPoint(oCoord);
-            CVector3d oDir = pService->modelViewer()->RealViewer()->GetCamera()->Direction().Vec3d().LocalVector(oCoord);
-            if (ggp::isZero(oDir.Z, g_DistEpsilon))
-            {
-                return false;
-            }
+            ...
             pt = (oPos - oDir / oDir.Z * oPos.Z).WorldPoint(oCoord).Vec3f();
             return true;
         }, m_piService);
