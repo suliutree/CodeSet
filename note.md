@@ -22,7 +22,7 @@
             }
         }
     
-        上层回调具体实现 
+        上层回调具体实现 
         SetPivotPointCallbackFun([](void* pContext, CVector3f& pt) -> bool
         {
             if (!pContext)
